@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Signin</title>
+</head>
+<body>
+	<h1>Login:</h1>
+	<form action="{% url 'dashboard_login' %}" method='post'>
+	{% csrf_token %} 
+		<p>Email: <input type="text" name="email"></p>
+		<p>Password: <input type="text" name="password"></p>
+		<input type="submit" value="Login">
+	</form>
+	{% if messages %}
+		<ul class="messages">
+		    {% for message in messages %}
+		    	<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		    {% endfor %}
+		</ul>
+	{% endif %}
+	<br>
+	<a href="{% url 'dashboard_edit' %}">Don't have an account? Register.</a>
+	{% for user in users %}
+	<p>ID:{{user.id}} Email: {{user.email}} UserLevel:{{user.user_level}}</p>
+	{% endfor %}
+	<h1>{{request.session.auth}}</h1>
+</body>
+</html>

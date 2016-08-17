@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SHowpage</title>
+</head>
+<body>
+	{%for user in users %}
+	<h1>{{user.first_name}}{{' '}}{{user.last_name}}</h1>
+	<p>Registered at: {{user.created_at}}</p>
+	<p>User ID: #{{user.id}}</p>
+	<p>Email Address: {{user.email}}</p>
+	<h2>Leave a message for {{user.first_name}}</h2>
+	<form action="{% url 'dashboard_addmessage' request.session.id %}" method="post">
+	{% csrf_token %} 
+	<textarea name="message" rows=6 cols=50></textarea>
+	<p><input type="submit" value="Post"></p>
+	</form>
+	{% for message in messages %}
+	{%for alluser in allusers %}
+		{%if message.user_id.id == alluser.id%}
+			<h3>{{alluser.first_name}}</h3>
+		<p>{{message.message}}</p>
+		<hr>
+		{%endif%}
+	{%endfor%}
+	{%endfor%}
+	{%endfor%}
+	<br>
+	<a href="{% url 'dashboard_dashboard'%}">Back to Dashboard</a>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit User</title>
+</head>
+<body>
+	{%for user in users%}	
+		<h3>Edit da user mayne, and this is user #{{user.id}}</h3>
+		<p>Edit Information</p>
+	<form action="{% url 'dashboard_saveuser' user.id %}" method='post'>
+	{% csrf_token %} 
+		<p>Email Address:</p>
+		<input type="text" name="email" value="{{user.email}}">
+		<p>First Name:</p>
+		<input type="text" name="f_name" value="{{user.first_name}}">
+		<p>Last Name:</p>
+		<input type="text" name="l_name" value="{{user.last_name}}">
+		<p>User Level:</p>
+		<select name="user_level">
+			<option>Normal</option>
+			<option>Admin</option>
+		</select>
+		<input type="submit" value="Save">
+	</form>	
+	{%endfor%}
+</body>
+</html>

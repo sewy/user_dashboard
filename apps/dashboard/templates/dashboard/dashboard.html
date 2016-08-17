@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Dashboard</title>
+</head>
+<body>
+	<h3>All Users</h3>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Email</th>
+			<th>Created_at</th>
+			<th>User_level</th>
+			{% if request.session.auth == '9' %}
+			<th>actions</th>
+			{% endif %}
+		</tr>
+		{%for user in users%}
+		<tr>
+			<td>{{user.id}}</td>
+			<td><a href="{% url 'dashboard_show' user.id %}">{{user.first_name}}</a></td>
+			<td>{{user.email}}</td>
+			<td>{{user.created_at}}</td>
+			{% if user.user_level == '9' %}
+			<td>Admin</td>
+			{% endif %}
+			{% if user.user_level == '1' %}
+			<td>Normal</td>
+			{% endif %}
+			{% if request.session.auth == '9' %}
+			<td><a href="{% url 'dashboard_edituser' user.id %}">Edit</a></td>
+			<td><a href="">Delete</a></td> 
+			{% endif %}
+
+
+		</tr>
+		{%endfor%}
+	</table>
+</body>
+</html>
