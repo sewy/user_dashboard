@@ -73,4 +73,8 @@ def saveuser(request, userid):
 	u.save()
 	return redirect(reverse('dashboard_dashboard'))
 
+def logout(request):
+	request.session.clear()
+	return redirect(reverse('dashboard_index'))
+
 
